@@ -1,8 +1,10 @@
+import { Author, Text } from './ReviewsCard.styled';
+
 export const ReviewsCard = ({ review }) => {
   return (
     <>
-      <b>Author: {review.author}</b>
-      <p>{review.content}</p>
+      <Author>Author: {review.author}</Author>
+      <Text>{review.content}</Text>
     </>
   );
 };

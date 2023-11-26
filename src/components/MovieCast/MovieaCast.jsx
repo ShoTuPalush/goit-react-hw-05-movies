@@ -1,32 +1,44 @@
 import { fetchGetMovieCreditsById } from 'api';
 import { ActorCard } from 'components/ActorCard/ActorCard';
+import { Errors } from 'components/Errors/Errors';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Item, List } from './MovieaCast.styled';
 
 export const MovieCast = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [actors, setActors] = useState([]);
   const params = useParams();
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const response = await fetchGetMovieCreditsById(params.movieId);
-      setActors(response.cast);
+      try {
+        setIsLoading(true);
+        const response = await fetchGetMovieCreditsById(params.movieId);
+        setActors(response.cast);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchMovie();
   }, [params.movieId]);
 
   return (
     <>
-      {actors.length > 0 && (
-        <ul>
+      {actors.length > 0 ? (
+        <List>
           {actors.map(actor => (
-            <li key={actor.id}>
+            <Item key={actor.id}>
               <ActorCard actor={actor} />
-            </li>
+            </Item>
           ))}
-        </ul>
+        </List>
+      ) : (
+        !isLoading && <Errors>We don`t have any casts for this movie.</Errors>
       )}
-      <p>cast</p>
+      {isLoading && <Loader />}
     </>
   );
 };

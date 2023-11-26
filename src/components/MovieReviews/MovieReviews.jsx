@@ -1,31 +1,44 @@
 import { fetchGetMovieReviewsById } from 'api';
+import { Errors } from 'components/Errors/Errors';
+import { Loader } from 'components/Loader/Loader';
 import { ReviewsCard } from 'components/ReviewsCard/ReviewsCard';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Item, List } from './MovieReviews.styled';
 
 export const MovieReviews = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
   const params = useParams();
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const response = await fetchGetMovieReviewsById(params.movieId);
-      setReviews(response.results);
+      try {
+        setIsLoading(true);
+        const response = await fetchGetMovieReviewsById(params.movieId);
+        setReviews(response.results);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchMovie();
   }, [params.movieId]);
+
   return (
     <>
-      {reviews.length > 0 && (
-        <ul>
+      {reviews.length > 0 ? (
+        <List>
           {reviews.map(review => (
-            <li key={review.id}>
+            <Item key={review.id}>
               <ReviewsCard review={review} />
-            </li>
+            </Item>
           ))}
-        </ul>
+        </List>
+      ) : (
+        !isLoading && <Errors>We don`t have any reviews for this movie.</Errors>
       )}
-      <p>We don`t have any reviews for this movie.</p>
+      {isLoading && <Loader />}
     </>
   );
 };

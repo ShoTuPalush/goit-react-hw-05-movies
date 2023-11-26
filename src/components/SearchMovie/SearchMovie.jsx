@@ -1,22 +1,27 @@
+import toast, { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'react-router-dom';
+import { Button, Form, Input } from './SearchMovie.styled';
 
-export const SearchMovie = () => {
+export const SearchMovie = ({ query }) => {
   const [params, setParams] = useSearchParams();
-  const query = params.get('query') ?? '';
 
   const updateQuery = evt => {
     evt.preventDefault();
     const value = evt.target.elements.query.value.trim();
+    if (!value) {
+      return toast.error('Can not be empty');
+    }
     params.set('query', value);
     setParams(params);
   };
 
   return (
     <>
-      <form onSubmit={updateQuery}>
-        <input name="query" type="text" defaultValue={query} />
-        <button type="submit">Search</button>
-      </form>
+      <Form onSubmit={updateQuery}>
+        <Input name="query" type="text" defaultValue={query} />
+        <Button type="submit">Search</Button>
+      </Form>
+      <Toaster />
     </>
   );
 };
