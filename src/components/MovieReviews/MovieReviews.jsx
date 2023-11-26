@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Item, List } from './MovieReviews.styled';
 
-export const MovieReviews = () => {
+export default function MovieReviews() {
   const [isLoading, setIsLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
   const params = useParams();
@@ -41,4 +41,4 @@ export const MovieReviews = () => {
       {isLoading && <Loader />}
     </>
   );
-};
+}

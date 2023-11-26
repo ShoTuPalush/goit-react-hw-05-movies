@@ -2,13 +2,13 @@ import { Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 import { GlobalStyle } from './GlobalStyled';
 import { SharedLayout } from './SharedLayout/SharedLayout';
-import { MovieCast } from './MovieCast/MovieaCast';
-import { MovieReviews } from './MovieReviews/MovieReviews';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const MoviesPage = lazy(() => import('pages/MoviesPage'));
 const MovieDetailsPage = lazy(() => import('pages/MovieDetailsPage'));
 const NotFoundPages = lazy(() => import('pages/NotFoundPages'));
+const MovieCast = lazy(() => import('./MovieCast/MovieaCast'));
+const MovieReviews = lazy(() => import('./MovieReviews/MovieReviews'));
 
 export const App = () => {
   return (

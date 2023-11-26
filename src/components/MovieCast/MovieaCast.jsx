@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Item, List } from './MovieaCast.styled';
 
-export const MovieCast = () => {
+export default function MovieCast() {
   const [isLoading, setIsLoading] = useState(false);
   const [actors, setActors] = useState([]);
   const params = useParams();
@@ -41,4 +41,4 @@ export const MovieCast = () => {
       {isLoading && <Loader />}
     </>
   );
-};
+}
