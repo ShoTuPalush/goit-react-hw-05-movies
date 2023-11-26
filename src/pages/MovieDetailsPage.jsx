@@ -9,7 +9,7 @@ export default function MovieDetailsPage() {
   return (
     <div>
       <button>
-        <Link to={backLocation.current.state?.from ?? '/movies'}>Go back</Link>
+        <Link to={backLocation.current.state?.from ?? '/'}>Go back</Link>
       </button>
       <MovieDetails />
       <p>Additional information</p>

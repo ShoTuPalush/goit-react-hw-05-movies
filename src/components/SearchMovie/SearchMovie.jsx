@@ -14,7 +14,7 @@ export const SearchMovie = () => {
   return (
     <>
       <form onSubmit={updateQuery}>
-        <input name="query" type="text" />
+        <input name="query" type="text" defaultValue={query} />
         <button type="submit">Search</button>
       </form>
     </>
